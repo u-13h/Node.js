@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            width: 320px;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 24px;
+        }
+
+        .login-container label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border: none;
+            background-color: #667eea;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-container button:hover {
+            background-color: #5a67d8;
+        }
+
+        .login-container button:last-of-type {
+            background-color: #48bb78;
+        }
+
+        .login-container button:last-of-type:hover {
+            background-color: #38a169;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>LOGIN</h1>
+        <form id="formulario">
+            <label for="usuario">Usuario</label>
+            <input type="text" name="usuario" id="usuario" required>
+
+            <label for="contrasena">Contraseña</label>
+            <input type="password" name="contrasena" id="contrasena" required>
+
+            <button type="button" id="ini">Iniciar sesión</button>
+            <button type="button" id="reg">Registrarse</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('ini').addEventListener('click', ini);
+        document.getElementById('reg').addEventListener('click', reg);
+
+        function ini() {
+            const form = document.getElementById('formulario');
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams(new FormData(form))
+            })
+            .then(res => res.text())
+            .then(data => alert(data));
+        }
+
+        function reg() {
+            const form = document.getElementById('formulario');
+            fetch('/registro', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams(new FormData(form))
+            })
+            .then(res => res.text())
+            .then(data => alert(data));
+        }
+    </script>
+</body>
+</html>
